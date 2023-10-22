@@ -6,15 +6,21 @@ namespace RaxRotCinema.Models
     {
         [Key]
         public int Id { get; set; }
+
         [Required]
         public string ProfilePictureURL { get; set; }
+
         [Required]
         public string FullName { get; set; }
+
+        [Required]
+        public string ShortBio { get; set; }
+
         [Required]
         public string Bio { get; set; }
 
         //relationship
-        public List<Actor_Movie> Actor_Movies { get; set; }
+        public List<Actor_Movie>? Actor_Movies { get; set; }
        
     }
 }

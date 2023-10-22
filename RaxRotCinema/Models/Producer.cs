@@ -12,9 +12,11 @@ namespace RaxRotCinema.Models
         [Required]
         public string FullName { get; set; }
         [Required]
+        public string ShortBio { get; set; }
+        [Required]
         public string Bio { get; set; }
 
         //Relationship
-        public List<Movie> Movies { get; set; }
+        public List<Movie>? Movies { get; set; }
     }
 }

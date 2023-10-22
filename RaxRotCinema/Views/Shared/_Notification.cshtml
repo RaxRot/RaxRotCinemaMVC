@@ -1,0 +1,22 @@
+﻿
+@using RaxRotCinema.Helper;
+
+@if (TempData[TagManager.ToastrSuccess] != null)
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+    <script type="text/javascript">
+        toastr.success('@TempData[TagManager.ToastrSuccess]');
+    </script>
+}
+
+@if (TempData[TagManager.ToastrError] != null)
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+    <script type="text/javascript">
+        toastr.error('@TempData[TagManager.ToastrError]');
+    </script>
+}

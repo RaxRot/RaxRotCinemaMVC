@@ -24,7 +24,7 @@
             <tr>
                 <th>CinemaLogo</th>
                 <th>Name</th>
-                <th>Description</th>
+                <th>Short Description</th>
                 <th></th>
             </tr>
         </thead>
@@ -36,7 +36,7 @@
                         <img class="rounded-circle" src="@cinema.Logo" alt="@cinema.Logo" width="150" height="150" />
                     </td>
                     <td>@cinema.Name</td>
-                    <td>@cinema.Description</td>
+                    <td>@cinema.ShortDescription</td>
                     <td>
                         <div class="w-75 btn-group" role="group">
                             <a asp-controller="Cinema" asp-action="Edit" asp-route-id="@cinema.Id" class="btn btn-primary mx-2">

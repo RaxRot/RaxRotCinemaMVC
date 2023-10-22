@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RaxRotCinema.Models;
 using RaxRotCinema.Repo.IRepository;
+using RaxRotCinema.Helper;
 
 namespace RaxRotCinema.Controllers
 {
@@ -12,10 +14,97 @@ namespace RaxRotCinema.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             var allActors = _unitOfWork.Actor.GetAll().ToList();
             return View(allActors);
         }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create([Bind("ProfilePictureURL,FullName,ShortBio,Bio")]Actor actor)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData[TagManager.ToastrError] = "Error";
+                return View(actor);
+            }
+
+            TempData[TagManager.ToastrSuccess] = "Created successfully";
+            _unitOfWork.Actor.Add(actor);
+            _unitOfWork.Save();
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            Actor actor = _unitOfWork.Actor.Get(x=>x.Id== id);
+            if (actor == null)
+            {
+                return View(nameof(NotFound));
+            }
+
+            return View(actor);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit([Bind("ProfilePictureURL,FullName,ShortBio,Bio,Id")] Actor actor)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData[TagManager.ToastrError] = "Error";
+                return View(actor);
+            }
+
+            TempData[TagManager.ToastrSuccess] = "Updated successfully";
+            _unitOfWork.Actor.Update(actor);
+            _unitOfWork.Save();
+
+            return RedirectToAction("Index");
+        }
+
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            Actor actor = _unitOfWork.Actor.Get(x => x.Id == id);
+            if (actor == null)
+            {
+                return View(nameof(NotFound));
+            }
+
+            return View(actor);
+        }
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeletePOST(int id)
+        {
+           
+            Actor actorToDelete = _unitOfWork.Actor.Get(x => x.Id == id);
+
+            if (actorToDelete == null)
+            {
+                TempData[TagManager.ToastrError] = "Error";
+                return NotFound();
+            }
+
+
+            TempData[TagManager.ToastrSuccess] = "Deleted successfully";
+
+            _unitOfWork.Actor.Remove(actorToDelete);
+            _unitOfWork.Save();
+
+            return RedirectToAction("Index");
+        }
+
+
     }
 }
