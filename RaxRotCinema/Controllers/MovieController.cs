@@ -14,7 +14,7 @@ namespace RaxRotCinema.Controllers
 
         public IActionResult Index()
         {
-            var allMovies = _unitOfWork.Movie.GetAll().ToList();
+            var allMovies = _unitOfWork.Movie.GetAll(includeProperties:"Cinema").ToList();
             return View(allMovies);
         }
     }
