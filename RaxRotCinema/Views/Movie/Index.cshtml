@@ -15,19 +15,24 @@
                     <div class="col-md-12">
                         <div class="card-header text-white bg-info">
                             <p class="card-text">
-                                <h5 class="card-title">
+                                <h5 class="card-title text-center">
                                     @movie.Name
-                                    <a class="text-white float-end"><i class="bg-info bi-pencil-square"></i></a>
+
+                                    <a asp-controller="Movie" asp-action="Delete" asp-route-id="@movie.Id"
+                                       class="text-danger float-start"><i class="bi bi-trash3"></i></a>
+                                    
+                                    <a asp-controller="Movie" asp-action="Edit" asp-route-id="@movie.Id"
+                                        class="text-white float-end"><i class="bg-info bi-pencil-square"></i></a>
                                 </h5>
                             </p>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <img src="@movie.ImageUrl" width="100%" alt="@movie.Name" />
+                        <img src="@movie.ImageUrl" width="100%" height="100%" alt="@movie.Name" />
                     </div>
                     <div class="col-md-6">
                         <div class="card-body">
-                            <p class="card-text">@movie.Description</p>
+                            <p class="card-text">@movie.ShortDescription</p>
                             <p class="card-text"><b>Cinema: </b> @movie.Cinema.Name</p>
                             <p class="card-text"><b>Category: </b> @movie.MovieCategory</p>
                             <p class="card-text"><b>Start Date: </b> @movie.StartDate.ToString("dd MMM yy")</p>
@@ -54,7 +59,9 @@
                     <div class="col-md-12">
                         <div class="card-footer">
                             <p class="card-text">
-                                <a class="btn btn-outline-primary float-end"><i class="bi bi-eye-fill"></i> Show Details</a>
+                                <a asp-controller="Movie" asp-action="Details" asp-route-id="@movie.Id" 
+                                class="btn btn-outline-primary float-end"><i class="bi bi-eye-fill"></i> Show Details</a>
+
                                 <a class="btn btn-success text-white"><i class="bi bi-card-plus"></i> Add to cart (Price @movie.Price.ToString("c", culture))</a>
                             </p>
                             </div>

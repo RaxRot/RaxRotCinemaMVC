@@ -38,6 +38,8 @@ namespace RaxRotCinema.Repo.Repository
             return query.FirstOrDefault();
         }
 
+       
+
         public IEnumerable<T> GetAll(string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;

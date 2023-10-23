@@ -1,13 +1,14 @@
 ﻿using RaxRotCinema.Data;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-namespace RaxRotCinema.Models
+namespace RaxRotCinema.Models.ViewModels
 {
-    public class Movie
+    public class MovieVM
     {
-        [Key]
+
         public int Id { get; set; }
+
 
         [Required]
         public string Name { get; set; }
@@ -26,20 +27,21 @@ namespace RaxRotCinema.Models
         [Required]
         public DateTime EndDate { get; set; }
 
-        
+
+        [Required]
         public MovieCategory MovieCategory { get; set; }
 
         //relationships
-        public List<Actor_Movie>? Actors_Movies { get; set; }
-        
-        //ciname
-        public int CinemaId { get; set; }
-        [ForeignKey("CinemaId")]
-        public Cinema Cinema { get; set; }
+        [Required]
+        [Display(Name ="Select actor(s)")]
+        public List<int> ActorIds { get; set; }
 
-        //producer
+        [Required]
+        [Display(Name ="Cinema")]
+        public int CinemaId { get; set; }
+        [Required]
+        [Display(Name = "Producer")]
         public int ProducerId { get; set; }
-        [ForeignKey("ProducerId")]
-        public Producer Producer { get; set;}
+        
     }
 }

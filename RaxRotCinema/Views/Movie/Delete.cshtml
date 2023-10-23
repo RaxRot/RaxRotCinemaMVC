@@ -1,0 +1,93 @@
+﻿@using RaxRotCinema.Models.ViewModels;
+@using RaxRotCinema.Data;
+
+@model MovieVM;
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h4>Delete Movie</h4>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+
+                <form method="post">
+
+                    <div class="row">
+                        <div class="col-md-6">
+
+                            <div class="col-md-4 offset-4 text-center">
+                                <img id="ImageUrlPreview" width="300" height="200" />
+                            </div>
+
+                            <div class=" form-group">
+                                <label asp-for="Name" class="control-label"></label>
+                                <input asp-for="Name" class="form-control" disabled />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+
+                            <div class=" form-group">
+                                <label asp-for="Price" class="control-label"></label>
+                                <input asp-for="Price" type="number" class="form-control" disabled />
+                                <span asp-validation-for="Price" class="text-danger"></span>
+                            </div>
+
+                            <div class=" form-group">
+                                <label asp-for="ShortDescription" class="control-label"></label>
+                                <input asp-for="ShortDescription" class="form-control" disabled />
+                                <span asp-validation-for="ShortDescription" class="text-danger"></span>
+                            </div>
+
+                            <div class=" form-group">
+                                <label asp-for="ImageUrl" class="control-label"></label>
+                                <input asp-for="ImageUrl" class="form-control" disabled />
+                                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                        
+                    </div>
+
+                   
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-outline-danger form-control">Delete</button>
+                        <hr>
+                        <a asp-controller="Movie" asp-action="Index" class="btn btn-outline-secondary border  form-control">Back To List</a>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var output = document.getElementById('ImageUrlPreview');
+            output.src = $("#ImageUrl").val();
+        })
+
+        $("#ImageUrl").on("change", function () {
+            var output = document.getElementById('ImageUrlPreview');
+            output.src = $(this).val();
+        })
+
+
+
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+        });
+
+    </script>
+
+
+    @{
+        <partial name="_ValidationScriptsPartial"> </partial>
+    }
+}
+
