@@ -22,6 +22,19 @@ namespace RaxRotCinema.Controllers
             return View(allMovies);
         }
 
+        [HttpPost]
+        public IActionResult Filter(string searchString)
+        {
+            var allMovies = _unitOfWork.Movie.GetAll(includeProperties: "Cinema").ToList();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                var filterResult = allMovies.Where(x => x.Name.Contains(searchString) || x.Description.Contains(searchString)).ToList();
+                return View("Index",filterResult);
+            }
+
+            return View("Index", allMovies);
+        }
+
         [HttpGet]
         public IActionResult Details(int id)
         {
@@ -180,7 +193,6 @@ namespace RaxRotCinema.Controllers
             TempData[TagManager.ToastrSuccess] = "Deleted";
 
             _unitOfWork.Movie.DeleteMovie(movie);
-
 
             return RedirectToAction("Index");
         }
