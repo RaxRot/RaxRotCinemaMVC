@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using RaxRotCinema.Data;
+using RaxRotCinema.Data.Cart;
 using RaxRotCinema.Repo.IRepository;
 using RaxRotCinema.Repo.Repository;
+using RaxRotCinema.Repo.Servises;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped(x => ShoppingCart.GetShoppingCart(x));
+
+builder.Services.AddSession();
 
 var app = builder.Build();
 
@@ -27,6 +35,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthorization();
 

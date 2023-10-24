@@ -4,5 +4,6 @@
     {
         public const string ToastrSuccess = "success";
         public const string ToastrError = "error";
+        public const string ToastrWarning = "warning";
     }
 }

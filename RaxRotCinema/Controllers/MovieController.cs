@@ -31,9 +31,11 @@ namespace RaxRotCinema.Controllers
                 var filterResult = allMovies.Where(x => x.Name.Contains(searchString) || x.Description.Contains(searchString)).ToList();
                 if (filterResult.Count > 0)
                 {
+                    TempData[TagManager.ToastrSuccess] = "Found";
                     return View("Index", filterResult);
                 }
             }
+            TempData[TagManager.ToastrError] = "Not Found";
             return View("Index", allMovies);
         }
 

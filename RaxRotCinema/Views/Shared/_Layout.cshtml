@@ -53,12 +53,37 @@
                             </ul>
                         </li>
 
+
+                        @*User Profile section*@
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person"></i> User
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-controller="Order" asp-action="IndexAllOrders">
+                                        <i class="bi bi-list"></i> Orders
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                            </ul>
+                        </li>
+
+                        
+
                     </ul>
+
+                    
 
                     <form class="form-inline my-2 my-lg-0 d-flex justify-content-between" asp-controller="Movie" asp-action="Filter" style="margin-right: 100px;">
                         <input name="searchString" type="text" class="form-control" placeholder="Search...">
                         <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
                     </form>
+
+                    <ul class="navbar-nav">
+                        @await Component.InvokeAsync("ShoppingCartSummary")
+                    </ul>
 
                 </div>
             </div>

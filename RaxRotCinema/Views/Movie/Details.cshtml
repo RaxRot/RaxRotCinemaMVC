@@ -86,7 +86,7 @@
                             <a asp-controller="Movie" asp-action="Index"
                                class="btn btn-outline-primary float-end">Back To List</a>
 
-                            <a class="btn btn-success text-white"><i class="bi bi-card-plus"></i> Add to cart (Price @Model.Price.ToString("c", culture))</a>
+                            <a asp-controller="Order" asp-action="AddItemToShoppingCart" asp-route-id="@Model.Id" class="btn btn-success text-white"><i class="bi bi-card-plus"></i> Add to cart (Price @Model.Price.ToString("c", culture))</a>
                         </p>
                     </div>
                 </div>
