@@ -30,33 +30,35 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Movie" asp-action="Index"><i class="bi bi-film"></i> Movies</a>
                         </li>
+                         @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item dropdown">
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-gear"></i> Management
-                            </a>
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-gear"></i> Management
+                                </a>
 
-                            <ul class="dropdown-menu">
-                               
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Cinema" asp-action="Index"><i class="bi bi-camera-reels"></i> Cinemas</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Producer" asp-action="Index"><i class="bi bi-headset"></i> Producers</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Actor" asp-action="Index"><i class="bi bi-person-square"></i> Actors</a>
-                                </li>
-                                <li><hr class="dropdown-divider"></li>
+                                <ul class="dropdown-menu">
 
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Movie" asp-action="Create"><i class="bi bi-plus-circle"></i> Create Movie</a>
-                                </li>
-                                
-                            </ul>
-                        </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Cinema" asp-action="Index"><i class="bi bi-camera-reels"></i> Cinemas</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Producer" asp-action="Index"><i class="bi bi-headset"></i> Producers</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Actor" asp-action="Index"><i class="bi bi-person-square"></i> Actors</a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
 
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Movie" asp-action="Create"><i class="bi bi-plus-circle"></i> Create Movie</a>
+                                    </li>
 
+                                </ul>
+                            </li>
+                        }
+                        
                         @*User Profile section*@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -72,8 +74,6 @@
                                 <li><hr class="dropdown-divider"></li>
                             </ul>
                         </li>
-
-                        
 
                     </ul>
 

@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RaxRotCinema.Helper;
 using RaxRotCinema.Models;
 using RaxRotCinema.Repo.IRepository;
 
 namespace RaxRotCinema.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class CinemaController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

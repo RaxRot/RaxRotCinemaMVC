@@ -2,9 +2,11 @@
 using RaxRotCinema.Models;
 using RaxRotCinema.Repo.IRepository;
 using RaxRotCinema.Helper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RaxRotCinema.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ActorController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -104,7 +106,5 @@ namespace RaxRotCinema.Controllers
 
             return RedirectToAction("Index");
         }
-
-
     }
 }

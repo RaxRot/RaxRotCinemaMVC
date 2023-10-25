@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RaxRotCinema.Helper;
 using RaxRotCinema.Models.ViewModels;
@@ -6,6 +7,7 @@ using RaxRotCinema.Repo.IRepository;
 
 namespace RaxRotCinema.Controllers
 {
+    [Authorize(Roles = "SuperAdmin")]
     public class MovieController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
