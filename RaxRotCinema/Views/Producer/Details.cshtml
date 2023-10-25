@@ -1,0 +1,36 @@
+﻿
+@model Producer;
+
+<div class="container">
+    <h1>Producer Details</h1>
+
+    <div class="row">
+        <div class="col-md-4">
+            <img src="@Model.ProfilePictureURL" class="img-fluid" alt="Profile Picture">
+        </div>
+        <div class="col-md-8">
+            <h3>@Model.FullName</h3>
+            <p>@Model.ShortBio</p>
+            <p>@Html.Raw(@Model.Bio)</p>
+        </div>
+    </div>
+
+    <a class="btn btn-secondary" asp-action="Index" asp-controller="Movie">Back to List</a>
+</div>
+
+@section Scripts{
+    <script>
+
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+        });
+
+    </script>
+
+
+    @{
+        <partial name="_ValidationScriptsPartial"> </partial>
+    }
+}

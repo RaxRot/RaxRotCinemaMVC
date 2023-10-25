@@ -6,7 +6,7 @@ using RaxRotCinema.Repo.IRepository;
 
 namespace RaxRotCinema.Controllers
 {
-    [Authorize(Roles = "Admin")]
+   
     public class ProducerController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -17,6 +17,7 @@ namespace RaxRotCinema.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             var allProducers = _unitOfWork.Producer.GetAll().ToList();
@@ -24,11 +25,13 @@ namespace RaxRotCinema.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("ProfilePictureURL,FullName,ShortBio,Bio")] Producer producer)
         {
@@ -46,6 +49,7 @@ namespace RaxRotCinema.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(int id)
         {
             Producer producer = _unitOfWork.Producer.Get(x => x.Id == id);
@@ -57,6 +61,7 @@ namespace RaxRotCinema.Controllers
             return View(producer);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public IActionResult Edit([Bind("ProfilePictureURL,FullName,ShortBio,Bio,Id")] Producer producer)
         {
@@ -75,6 +80,7 @@ namespace RaxRotCinema.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             Producer producer = _unitOfWork.Producer.Get(x => x.Id == id);
@@ -86,6 +92,7 @@ namespace RaxRotCinema.Controllers
             return View(producer);
         }
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public IActionResult DeletePOST(int id)
         {
@@ -105,6 +112,18 @@ namespace RaxRotCinema.Controllers
             _unitOfWork.Save();
 
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult Details(int id)
+        {
+            var producer = _unitOfWork.Producer.Get(x=>x.Id==id);
+            if (producer == null)
+            {
+                return NotFound();
+            }
+            return View(producer);
         }
     }
 }

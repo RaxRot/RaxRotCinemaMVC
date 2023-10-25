@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace RaxRotCinema.Controllers
 {
-    [Authorize(Roles = "Admin")]
+   
     public class ActorController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -17,6 +17,7 @@ namespace RaxRotCinema.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             var allActors = _unitOfWork.Actor.GetAll().ToList();
@@ -24,11 +25,13 @@ namespace RaxRotCinema.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("ProfilePictureURL,FullName,ShortBio,Bio")]Actor actor)
         {
@@ -46,6 +49,7 @@ namespace RaxRotCinema.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(int id)
         {
             Actor actor = _unitOfWork.Actor.Get(x=>x.Id== id);
@@ -57,6 +61,7 @@ namespace RaxRotCinema.Controllers
             return View(actor);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public IActionResult Edit([Bind("ProfilePictureURL,FullName,ShortBio,Bio,Id")] Actor actor)
         {
@@ -75,6 +80,7 @@ namespace RaxRotCinema.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             Actor actor = _unitOfWork.Actor.Get(x => x.Id == id);
@@ -86,6 +92,7 @@ namespace RaxRotCinema.Controllers
             return View(actor);
         }
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public IActionResult DeletePOST(int id)
         {
@@ -105,6 +112,17 @@ namespace RaxRotCinema.Controllers
             _unitOfWork.Save();
 
             return RedirectToAction("Index");
+        }
+        [HttpGet]
+        [Authorize]
+        public IActionResult Details(int id)
+        {
+            var actor = _unitOfWork.Actor.Get(x => x.Id == id);
+            if (actor == null)
+            {
+                return NotFound();
+            }
+            return View(actor);
         }
     }
 }

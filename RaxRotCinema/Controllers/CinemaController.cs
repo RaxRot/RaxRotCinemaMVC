@@ -6,7 +6,7 @@ using RaxRotCinema.Repo.IRepository;
 
 namespace RaxRotCinema.Controllers
 {
-    [Authorize(Roles ="Admin")]
+    
     public class CinemaController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -16,7 +16,7 @@ namespace RaxRotCinema.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             var allCinemas = _unitOfWork.Cinema.GetAll().ToList();
@@ -24,11 +24,13 @@ namespace RaxRotCinema.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("Logo,Name,ShortDescription,Description")] Cinema cinema)
         {
@@ -46,6 +48,7 @@ namespace RaxRotCinema.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(int id)
         {
             Cinema cinema = _unitOfWork.Cinema.Get(x => x.Id == id);
@@ -57,6 +60,7 @@ namespace RaxRotCinema.Controllers
             return View(cinema);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public IActionResult Edit([Bind("Logo,Name,ShortDescription,Description,Id")] Cinema cinema)
         {
@@ -75,6 +79,7 @@ namespace RaxRotCinema.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             Cinema cinema = _unitOfWork.Cinema.Get(x => x.Id == id);
@@ -86,6 +91,7 @@ namespace RaxRotCinema.Controllers
             return View(cinema);
         }
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public IActionResult DeletePOST(int id)
         {
@@ -105,6 +111,17 @@ namespace RaxRotCinema.Controllers
             _unitOfWork.Save();
 
             return RedirectToAction("Index");
+        }
+        [HttpGet]
+        [Authorize]
+        public IActionResult Details(int id)
+        {
+            var cinema = _unitOfWork.Cinema.Get(x => x.Id == id);
+            if (cinema == null)
+            {
+                return NotFound();
+            }
+            return View(cinema);
         }
     }
 }

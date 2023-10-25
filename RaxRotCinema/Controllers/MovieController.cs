@@ -7,7 +7,7 @@ using RaxRotCinema.Repo.IRepository;
 
 namespace RaxRotCinema.Controllers
 {
-    [Authorize(Roles = "SuperAdmin")]
+   
     public class MovieController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -42,6 +42,7 @@ namespace RaxRotCinema.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Details(int id)
         {
             var movieDetail=_unitOfWork.Movie.GetMovieById(id);
@@ -49,7 +50,9 @@ namespace RaxRotCinema.Controllers
             return View(movieDetail);
         }
 
+
         [HttpGet]
+        [Authorize(Roles = "SuperAdmin")]
         public IActionResult Create()
         {
             var movieDropDownsData=_unitOfWork.Movie.GetMovieDropDownVMValues();
@@ -63,6 +66,7 @@ namespace RaxRotCinema.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "SuperAdmin")]
         public IActionResult Create(MovieVM movie)
         {
             if(!ModelState.IsValid)
@@ -88,6 +92,7 @@ namespace RaxRotCinema.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "SuperAdmin")]
         public IActionResult Edit(int id)
         {
             var movieDetails=_unitOfWork.Movie.GetMovieById(id);
@@ -122,6 +127,7 @@ namespace RaxRotCinema.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "SuperAdmin")]
         public IActionResult Edit(int id,MovieVM movie)
         {
             if (id != movie.Id)
@@ -153,6 +159,7 @@ namespace RaxRotCinema.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "SuperAdmin")]
         public IActionResult Delete(int id)
         {
             var movieDetails = _unitOfWork.Movie.GetMovieById(id);
@@ -188,6 +195,7 @@ namespace RaxRotCinema.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "SuperAdmin")]
         public IActionResult Delete(int id, MovieVM movie)
         {
             if (id != movie.Id)
