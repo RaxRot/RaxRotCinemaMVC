@@ -98,6 +98,8 @@ namespace RaxRotCinema.Data.Cart
 
             _context.ShoppingCartItems.RemoveRange(items);
             _context.SaveChanges();
+
+            ShoppingCartItems = new List<ShoppingCartItem>();
         }
 
     }
