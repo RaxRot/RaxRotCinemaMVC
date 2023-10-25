@@ -4,9 +4,12 @@ using RaxRotCinema.Models.ViewModels;
 using RaxRotCinema.Repo.IRepository;
 using RaxRotCinema.Helper;
 using RaxRotCinema.Repo.Servises;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RaxRotCinema.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -38,7 +41,7 @@ namespace RaxRotCinema.Controllers
 
         public IActionResult IndexAllOrders()
         {
-            string userId = "";
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var orders=_orderService.GetOrdersByUserId(userId);
             return View(orders);
         }
@@ -69,9 +72,10 @@ namespace RaxRotCinema.Controllers
 
         public IActionResult CompleteOrder()
         {
-             var items=_shoppingCart.GetShoppingCartItems();
-            string userId = "";
-            string userEmailAdress = "";
+            
+            var items=_shoppingCart.GetShoppingCartItems();
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userEmailAdress = User.FindFirstValue(ClaimTypes.Email);
 
             _orderService.StoreOrder(items, userId, userEmailAdress);
             _shoppingCart.ClearShoppingCart();
